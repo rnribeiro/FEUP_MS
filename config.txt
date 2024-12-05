@@ -1,0 +1,25 @@
+cenarios
+
+1. Basic highway driving without lane changes.
+rewards: colisoes, velocidade, aceleração, right lane = 0
+env: 1 lane only
+
+2. Overtaking slower vehicles in multi-lane traffic.
+rewards: colisoes, velocidade, aceleração, right lane
+env: 2 lanes with slow traffic in the right lane
+
+3. Navigating through high-density traffic with frequent lane changes.
+rewards: colisoes, velocidade, aceleração, right lane
+env: 4 lanes with high density traffic
+
+4. Merging from an on-ramp into the main highway flow.
+rewards: colisoes, velocidade, aceleração, right lane
+env: 4 starting lanes with an on-ramp merging into the main highway ending up with 3 lanes
+
+
+
+rewards
+colisoes: evitar colisoes
+velocidade: maximizar a velocidade instantanea
+aceleraçao: minimizar aceleraçao
+right lane: maximizar tempo na right lane

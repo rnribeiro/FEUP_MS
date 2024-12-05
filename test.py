@@ -1,5 +1,4 @@
 import gymnasium as gym
-import highway_env
 from stable_baselines3 import DQN, PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 import time
@@ -7,13 +6,13 @@ import time
 
 def main():
     # Configuração do ambiente
-    # register new new_env.py environment
+    # register new myenv.py environment
     gym.envs.register(
-        id='new_env',
-        entry_point='new_env:HighwayEnvFast',
+        id='myenv',
+        entry_point='myenv:MyEnv',
     )
 
-    env = gym.make('new_env', render_mode='rgb_array')
+    env = gym.make('myenv', render_mode='rgb_array')
     
     # Criação do modelo
     model = PPO('MlpPolicy', env,

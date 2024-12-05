@@ -1,0 +1,38 @@
+{
+  "scenarios": [
+    {
+      "id": 1,
+      "description": "Scenario 1",
+      "env": {
+        "id": "",
+        "entry_point": ""
+      },
+      "config": {
+        "vehicles_count": 1,
+        "vehicles_density": 1,
+        "lanes_count" : 1,
+        "collision_reward": -1,
+        "high_speed_reward": 0.1,
+        "reward_speed_range": [20, 30],
+        "acceleration_reward": 0.1,
+        "right_lane_reward": 0
+      }
+    }
+  ],
+  "rewards" : [
+    {
+      "collisions" : {
+        "description": ""
+      },
+      "speed" : {
+        "description": ""
+      },
+      "acceleration" : {
+        "description": ""
+      },
+      "right_lane" : {
+        "description": ""
+      }
+    }
+  ]
+}
