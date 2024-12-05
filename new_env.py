@@ -44,9 +44,11 @@ class HighwayEnv(AbstractEnv):
                 "high_speed_reward": 0.4,  # The reward received when driving at full speed, linearly mapped to zero for
                 # lower speeds according to config["reward_speed_range"].
                 "lane_change_reward": 0,  # The reward received at each lane change action.
+                "acceleration_reward": 0.2,  # The reward received at each acceleration action.
                 "reward_speed_range": [20, 30],
                 "normalize_reward": True,
                 "offroad_terminal": False,
+
             }
         )
         return config
@@ -109,6 +111,7 @@ class HighwayEnv(AbstractEnv):
                 [
                     self.config["collision_reward"],
                     self.config["high_speed_reward"] + self.config["right_lane_reward"],
+                    self.config["acceleration_reward"]
                 ],
                 [0, 1],
             )
@@ -116,6 +119,11 @@ class HighwayEnv(AbstractEnv):
         return reward
 
     def _rewards(self, action: Action) -> dict[str, float]:
+        print("acceleration -> ", self.vehicle.action["acceleration"])
+        # write acceleration to a file
+        with open("acceleration.txt", "a") as f:
+            if not self.vehicle.crashed:
+                f.write(str(min(self.vehicle.action["acceleration"], 0)) + "\n") 
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
         lane = (
             self.vehicle.target_lane_index[2]
@@ -132,6 +140,8 @@ class HighwayEnv(AbstractEnv):
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
             "high_speed_reward": np.clip(scaled_speed, 0, 1),
             "on_road_reward": float(self.vehicle.on_road),
+            "acceleration_reward": (min(self.vehicle.action["acceleration"], 0))**2,
+
         }
 
     def _is_terminated(self) -> bool:

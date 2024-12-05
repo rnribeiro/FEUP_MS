@@ -33,7 +33,7 @@ def main():
     
 
 
-    model.learn(int(5e3))
+    model.learn(int(1e3))
 
     # Salvar o modelo treinado
     model.save("ppo_highway_test")
