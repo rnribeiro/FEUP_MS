@@ -6,10 +6,10 @@
       "description": "Basic highway driving without lane changes",
       "env": {
         "description": "Simple highway driving environment",
-        "entry_point": "./envs/highway:Highway"
+        "entry_point": "envs.highway:Highway"
       },
       "config": {
-        "vehicles_count": 1,
+        "vehicles_count": 10,
         "vehicles_density": 1,
         "lanes_count" : 1,
         "collision_reward": -1,
@@ -26,10 +26,10 @@
       "description": "",
       "env": {
         "description": "Simple highway driving environment",
-        "entry_point": "./envs/highway:Highway"
+        "entry_point": "envs.highway:Highway"
       },
       "config": {
-        "vehicles_count": 1,
+        "vehicles_count": 10,
         "vehicles_density": 1,
         "lanes_count" : 2,
         "collision_reward": -1,
@@ -46,10 +46,10 @@
       "description": "Navigating through high-density traffic with frequent lane changes",
       "env": {
         "description": "Simple highway driving environment",
-        "entry_point": "./envs/highway:Highway"
+        "entry_point": "envs.highway:Highway"
       },
       "config": {
-        "vehicles_count": 1,
+        "vehicles_count": 10,
         "vehicles_density": 1,
         "lanes_count" : 4,
         "collision_reward": -1,
@@ -66,10 +66,10 @@
       "description": "Merging from an on-ramp into the main highway flow",
       "env": {
         "description": "Highway driving environment with merging on-ramp",
-        "entry_point": "./envs/merging_highway:MergingHighway"
+        "entry_point": "envs.merging_highway:MergingHighway"
       },
       "config": {
-        "vehicles_count": 1,
+        "vehicles_count": 10,
         "vehicles_density": 1,
         "lanes_count" : 4,
         "collision_reward": -1,
