@@ -1,0 +1,101 @@
+{
+  "scenarios": [
+    {
+      "id": 1,
+      "name": "Scenario 1",
+      "description": "Basic highway driving without lane changes",
+      "env": {
+        "description": "Simple highway driving environment",
+        "entry_point": "./envs/highway:Highway"
+      },
+      "config": {
+        "vehicles_count": 1,
+        "vehicles_density": 1,
+        "lanes_count" : 1,
+        "collision_reward": -1,
+        "high_speed_reward": 0.1,
+        "reward_speed_range": [20, 30],
+        "acceleration_reward": -0.1,
+        "right_lane_reward": 0,
+        "lane_change_reward": -0.05
+      }
+    },
+    {
+      "id": 2,
+      "name": "Scenario 2",
+      "description": "",
+      "env": {
+        "description": "Simple highway driving environment",
+        "entry_point": "./envs/highway:Highway"
+      },
+      "config": {
+        "vehicles_count": 1,
+        "vehicles_density": 1,
+        "lanes_count" : 2,
+        "collision_reward": -1,
+        "high_speed_reward": 0.1,
+        "reward_speed_range": [20, 30],
+        "acceleration_reward": -0.1,
+        "right_lane_reward": 0,
+        "lane_change_reward": -0.05
+      }
+    },
+    {
+      "id": 3,
+      "name": "Scenario 3",
+      "description": "Navigating through high-density traffic with frequent lane changes",
+      "env": {
+        "description": "Simple highway driving environment",
+        "entry_point": "./envs/highway:Highway"
+      },
+      "config": {
+        "vehicles_count": 1,
+        "vehicles_density": 1,
+        "lanes_count" : 4,
+        "collision_reward": -1,
+        "high_speed_reward": 0.1,
+        "reward_speed_range": [20, 30],
+        "acceleration_reward": -0.1,
+        "right_lane_reward": 0,
+        "lane_change_reward": -0.05
+      }
+    },
+    {
+      "id": 4,
+      "name": "Scenario 4",
+      "description": "Merging from an on-ramp into the main highway flow",
+      "env": {
+        "description": "Highway driving environment with merging on-ramp",
+        "entry_point": "./envs/merging_highway:MergingHighway"
+      },
+      "config": {
+        "vehicles_count": 1,
+        "vehicles_density": 1,
+        "lanes_count" : 4,
+        "collision_reward": -1,
+        "high_speed_reward": 0.1,
+        "reward_speed_range": [20, 30],
+        "acceleration_reward": -0.1,
+        "merging_speed_reward": -0.5,
+        "right_lane_reward": 0,
+        "lane_change_reward": -0.05
+      }
+    }
+  ],
+  "rewards" : [
+    {
+      "collisions" : {
+        "description": "Avoid collisions with other vehicles"
+      },
+      "speed" : {
+        "description": "Maximize instant speed"
+      },
+      "acceleration" : {
+        "description": "Minimize acceleration changes"
+      },
+      "right_lane" : {
+        "description": "Maximize permanence in the right lane"
+      }
+    }
+  ]
+}

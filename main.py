@@ -15,10 +15,10 @@ def main():
     env = gym.make('myenv', render_mode='rgb_array')
     
     # Criação do modelo
-    model = PPO('MlpPolicy', env,
+    ppo_model = PPO('MlpPolicy', env,
               policy_kwargs=dict(net_arch=[256, 256]),
               learning_rate=5e-4,
-              batch_size=32,
+              batch_size=128,
               gamma=0.8,
               n_steps=2048,  # Number of steps to run for each environment per update
               ent_coef=0.01,  # Entropy coefficient
@@ -27,9 +27,22 @@ def main():
               gae_lambda=0.95,  # GAE lambda
               clip_range=0.2,  # Clipping range
               verbose=1,
-              tensorboard_log="highway_ppo/",
+              tensorboard_log="logs/",
               device='cuda')
-    
+
+    dqn_model = DQN('MlpPolicy', env,
+            policy_kwargs=dict(net_arch=[256, 256]),
+            learning_rate=5e-4,
+            buffer_size=15000,
+            learning_starts=200,
+            batch_size=32,
+            gamma=0.8,
+            train_freq=1,
+            gradient_steps=1,
+            target_update_interval=50,
+            verbose=1,
+            tensorboard_log="highway_dqn/",
+            device='cuda')
 
 
     model.learn(int(1e3))

@@ -15,11 +15,3 @@ env: 4 lanes with high density traffic
 4. Merging from an on-ramp into the main highway flow.
 rewards: colisoes, velocidade, aceleração, right lane
 env: 4 starting lanes with an on-ramp merging into the main highway ending up with 3 lanes
-
-
-
-rewards
-colisoes: evitar colisoes
-velocidade: maximizar a velocidade instantanea
-aceleraçao: minimizar aceleraçao
-right lane: maximizar tempo na right lane

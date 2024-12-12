@@ -7,9 +7,9 @@ from highway_env.vehicle.controller import ControlledVehicle
 
 Observation = np.ndarray
 
-class MyEnv(HighwayEnv):
-
-    def config(self, myconfig: dict) -> dict:
+class Highway(HighwayEnv):
+    @classmethod
+    def config(cls, myconfig: dict) -> dict:
         config = super().default_config()
         config.update(myconfig)
         return config
@@ -28,9 +28,8 @@ class MyEnv(HighwayEnv):
             reward = utils.lmap(
                 reward,
                 [
-                    self.config["collision_reward"],
+                    self.config["collision_reward"] + self.config["acceleration_reward"] + self.config["lane_change_reward"],
                     self.config["high_speed_reward"] + self.config["right_lane_reward"],
-                    self.config["acceleration_reward"]
                 ],
                 [0, 1],
             )
@@ -38,11 +37,11 @@ class MyEnv(HighwayEnv):
         return reward
 
     def _rewards(self, action: Action) -> dict[str, float]:
-        print("acceleration -> ", self.vehicle.action["acceleration"])
+        # print("acceleration -> ", self.vehicle.action["acceleration"])
         # write acceleration to a file
-        with open("acceleration.txt", "a") as f:
-            if not self.vehicle.crashed:
-                f.write(str(min(self.vehicle.action["acceleration"], 0)) + "\n") 
+        # with open("acceleration.txt", "a") as f:
+        #     if not self.vehicle.crashed:
+        #         f.write(str(min(self.vehicle.action["acceleration"], 0)) + "\n")
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
         lane = (
             self.vehicle.target_lane_index[2]
@@ -62,15 +61,13 @@ class MyEnv(HighwayEnv):
             "acceleration_reward": (min(self.vehicle.action["acceleration"], 0))**2,
         }
 
-class MyEnvFast(MyEnv):
+class HighwayFast(Highway):
     @classmethod
     def default_config(cls) -> dict:
         cfg = super().default_config()
         cfg.update(
             {
                 "simulation_frequency": 5,
-                # "lanes_count": 3,
-                # "vehicles_count": 20,
                 "duration": 30,  # [s]
                 "ego_spacing": 1.5,
             }
