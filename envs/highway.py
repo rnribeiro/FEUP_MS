@@ -91,14 +91,17 @@ class Highway(HighwayEnv):
             idle = sum([1 for line in lines if "1" in line]) / sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) if sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) > 0 else 0
        
         print("idle % -> ", idle)
-        idle = idle if idle > self.config["idle_percentage_threshold"] else 0
+        idle = idle if (idle < self.config["idle_percentage_range"][1] and idle > self.config["idle_percentage_range"][0] )else 0
+        scaled_idle = utils.lmap(
+            idle, self.config["idle_percentage_range"], [0, 1]
+        )
 
         return {
             "collision_reward": float(self.vehicle.crashed),
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
             "high_speed_reward": np.clip(scaled_speed, 0, 1),
             "on_road_reward": float(self.vehicle.on_road),
-            "idle_reward": idle,
+            "idle_reward": np.clip(scaled_idle, 0, 1),
             "lane_change_reward": action in [0, 2],
         }
 
