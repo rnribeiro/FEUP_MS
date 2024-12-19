@@ -14,12 +14,47 @@ class Highway(HighwayEnv):
         config.update(myconfig)
         return config
 
+    def _create_vehicles(self) -> None:
+        """Create some new random vehicles of a given type, and add them on the road."""
+        other_vehicles_type = utils.class_from_path(self.config["other_vehicles_type"])
+        other_per_controlled = near_split(
+            self.config["vehicles_count"], num_bins=self.config["controlled_vehicles"]
+        )
+
+        self.controlled_vehicles = []
+        for others in other_per_controlled:
+            vehicle = Vehicle.create_random(
+                self.road,
+                speed=25,
+                lane_id=self.config["initial_lane_id"],
+                spacing=self.config["ego_spacing"],
+            )
+            vehicle = self.action_type.vehicle_class(
+                self.road, vehicle.position, vehicle.heading, vehicle.speed
+            )
+            self.controlled_vehicles.append(vehicle)
+            self.road.vehicles.append(vehicle)
+
+            for _ in range(others):
+                vehicle = other_vehicles_type.create_random(
+                    self.road, spacing=1 / self.config["vehicles_density"]
+                )
+                vehicle.randomize_behavior()
+                self.road.vehicles.append(vehicle)
+
+        with open('action.txt', 'w') as f:
+            f.write("")  
+
+
     def _reward(self, action: Action) -> float:
         """
         The reward is defined to foster driving at high speed, on the rightmost lanes, and to avoid collisions.
         :param action: the last action performed
         :return: the corresponding reward
         """
+        # write action to txt file
+        with open('action.txt', 'a') as f:
+            f.write(str(action) + "\n")
         rewards = self._rewards(action)
         reward = sum(
             self.config.get(name, 0) * reward for name, reward in rewards.items()
@@ -28,20 +63,16 @@ class Highway(HighwayEnv):
             reward = utils.lmap(
                 reward,
                 [
-                    self.config["collision_reward"] + self.config["acceleration_reward"] + self.config["lane_change_reward"],
-                    self.config["high_speed_reward"] + self.config["right_lane_reward"],
+                    self.config["collision_reward"] + self.config["lane_change_reward"],
+                    self.config["high_speed_reward"] + self.config["right_lane_reward"] + self.config["idle_reward"],
                 ],
                 [0, 1],
             )
         reward *= rewards["on_road_reward"]
         return reward
 
+
     def _rewards(self, action: Action) -> dict[str, float]:
-        # print("acceleration -> ", self.vehicle.action["acceleration"])
-        # write acceleration to a file
-        # with open("acceleration.txt", "a") as f:
-        #     if not self.vehicle.crashed:
-        #         f.write(str(min(self.vehicle.action["acceleration"], 0)) + "\n")
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
         lane = (
             self.vehicle.target_lane_index[2]
@@ -53,12 +84,22 @@ class Highway(HighwayEnv):
         scaled_speed = utils.lmap(
             forward_speed, self.config["reward_speed_range"], [0, 1]
         )
+
+        # Get percentage of idle actions from action.txt
+        with open('action.txt', 'r') as f:
+            lines = f.readlines()
+            idle = sum([1 for line in lines if "1" in line]) / sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) if sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) > 0 else 0
+       
+        print("idle % -> ", idle)
+        idle = idle if idle > self.config["idle_percentage_threshold"] else 0
+
         return {
             "collision_reward": float(self.vehicle.crashed),
             "right_lane_reward": lane / max(len(neighbours) - 1, 1),
             "high_speed_reward": np.clip(scaled_speed, 0, 1),
             "on_road_reward": float(self.vehicle.on_road),
-            "acceleration_reward": (min(self.vehicle.action["acceleration"], 0))**2,
+            "idle_reward": idle,
+            "lane_change_reward": action in [0, 2],
         }
 
 class HighwayFast(Highway):
@@ -68,6 +109,8 @@ class HighwayFast(Highway):
         cfg.update(
             {
                 "simulation_frequency": 5,
+                "lanes_count": 3,
+                "vehicles_count": 20,
                 "duration": 30,  # [s]
                 "ego_spacing": 1.5,
             }

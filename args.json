@@ -15,7 +15,8 @@
         "collision_reward": -1,
         "high_speed_reward": 0.1,
         "reward_speed_range": [20, 30],
-        "acceleration_reward": -0.1,
+        "idle_reward": 0.1,
+        "idle_percentage_threshold": 0.80,
         "right_lane_reward": 0,
         "lane_change_reward": -0.05
       }
@@ -35,7 +36,8 @@
         "collision_reward": -1,
         "high_speed_reward": 0.1,
         "reward_speed_range": [20, 30],
-        "acceleration_reward": -0.1,
+        "idle_reward": 0.1,
+        "idle_percentage_threshold": 0.80,
         "right_lane_reward": 0,
         "lane_change_reward": -0.05
       }
@@ -55,7 +57,8 @@
         "collision_reward": -1,
         "high_speed_reward": 0.1,
         "reward_speed_range": [20, 30],
-        "acceleration_reward": -0.1,
+        "idle_reward": 0.1,
+        "idle_percentage_threshold": 0.80,
         "right_lane_reward": 0,
         "lane_change_reward": -0.05
       }
@@ -75,7 +78,8 @@
         "collision_reward": -1,
         "high_speed_reward": 0.1,
         "reward_speed_range": [20, 30],
-        "acceleration_reward": -0.1,
+        "idle_reward": 0.1,
+        "idle_percentage_threshold": 0.80,
         "merging_speed_reward": -0.5,
         "right_lane_reward": 0,
         "lane_change_reward": -0.05
