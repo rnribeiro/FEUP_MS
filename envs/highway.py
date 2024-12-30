@@ -4,6 +4,9 @@ from highway_env import utils
 from highway_env.envs import HighwayEnv
 from highway_env.envs.common.action import Action
 from highway_env.vehicle.controller import ControlledVehicle
+from highway_env.vehicle.kinematics import Vehicle
+from highway_env.utils import near_split
+
 
 Observation = np.ndarray
 
@@ -68,7 +71,9 @@ class Highway(HighwayEnv):
                 ],
                 [0, 1],
             )
+
         reward *= rewards["on_road_reward"]
+        print("reward -> ", reward)
         return reward
 
 
@@ -84,6 +89,7 @@ class Highway(HighwayEnv):
         scaled_speed = utils.lmap(
             forward_speed, self.config["reward_speed_range"], [0, 1]
         )
+        print("speed -> ", forward_speed)
 
         # Get percentage of idle actions from action.txt
         with open('action.txt', 'r') as f:
