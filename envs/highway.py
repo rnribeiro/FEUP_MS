@@ -6,6 +6,12 @@ from highway_env.envs.common.action import Action
 from highway_env.vehicle.controller import ControlledVehicle
 from highway_env.vehicle.kinematics import Vehicle
 from highway_env.utils import near_split
+import tensorflow as tf
+
+log_dir = f"./logs/scenario_2_dqn/"
+
+summary_writer = tf.summary.create_file_writer(log_dir)
+
 
 
 Observation = np.ndarray
@@ -47,6 +53,8 @@ class Highway(HighwayEnv):
 
         with open('action.txt', 'w') as f:
             f.write("")  
+        
+
 
 
     def _reward(self, action: Action) -> float:
