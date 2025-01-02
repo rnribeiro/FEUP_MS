@@ -8,20 +8,53 @@ from highway_env.vehicle.kinematics import Vehicle
 from highway_env.utils import near_split
 import tensorflow as tf
 
-log_dir = f"./logs/scenario_2_dqn/"
-
-summary_writer = tf.summary.create_file_writer(log_dir)
-
-
+# log_dir will be dynamically set during environment initialization
+global_step = 0  # Global step counter for logging
+episode_speeds = []  # To store speeds for the current episode
+episode_step_count = 0  # Count steps in the current episode
+episode_number = 0  
+summary_writer = tf.summary.create_file_writer(f"./logs/AAAA")
 
 Observation = np.ndarray
 
-class Highway(HighwayEnv):
+class Highway(HighwayEnv):       
     @classmethod
     def config(cls, myconfig: dict) -> dict:
         config = super().default_config()
         config.update(myconfig)
         return config
+
+    def step(self, action: Action):
+        """Override the step method to accumulate speeds and detect the end of an episode."""
+        global episode_speeds, episode_step_count, episode_number, summary_writer
+        obs, reward, terminated, truncated, info = super().step(action)
+
+
+        # Accumulate speed and increment step count
+        forward_speed = self.vehicle.speed * np.cos(self.vehicle.heading)
+        episode_speeds.append(forward_speed)
+        episode_step_count += 1
+
+        # If the episode ends, calculate statistics
+        if terminated or truncated:
+            average_speed = sum(episode_speeds) / max(episode_step_count, 1)
+            min_speed = min(episode_speeds)
+            max_speed = max(episode_speeds)
+
+            print(f"Episode {episode_number}: Average Speed = {average_speed}, Min Speed = {min_speed}, Max Speed = {max_speed}")
+
+            # Log statistics to TensorFlow
+            with summary_writer.as_default():
+                tf.summary.scalar("Speed/Average", average_speed, step=episode_number)
+                tf.summary.scalar("Speed/Min", min_speed, step=episode_number)
+                tf.summary.scalar("Speed/Max", max_speed, step=episode_number)
+
+            # Reset for the next episode
+            episode_speeds = []
+            episode_step_count = 0
+            episode_number += 1
+
+        return obs, reward, terminated, truncated, info
 
     def _create_vehicles(self) -> None:
         """Create some new random vehicles of a given type, and add them on the road."""
@@ -53,9 +86,6 @@ class Highway(HighwayEnv):
 
         with open('action.txt', 'w') as f:
             f.write("")  
-        
-
-
 
     def _reward(self, action: Action) -> float:
         """
@@ -84,8 +114,9 @@ class Highway(HighwayEnv):
         print("reward -> ", reward)
         return reward
 
-
     def _rewards(self, action: Action) -> dict[str, float]:
+        global global_step
+
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
         lane = (
             self.vehicle.target_lane_index[2]
@@ -99,16 +130,23 @@ class Highway(HighwayEnv):
         )
         print("speed -> ", forward_speed)
 
+        # Log speed to TensorFlow
+        with summary_writer.as_default():
+            tf.summary.scalar("Speed/Forward", forward_speed, step=global_step)
+            tf.summary.scalar("Speed/Scaled", scaled_speed, step=global_step)
+
         # Get percentage of idle actions from action.txt
         with open('action.txt', 'r') as f:
             lines = f.readlines()
             idle = sum([1 for line in lines if "1" in line]) / sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) if sum([1 for line in lines if line in ["1\n","3\n","4\n"]]) > 0 else 0
-       
+
         print("idle % -> ", idle)
         idle = idle if (idle < self.config["idle_percentage_range"][1] and idle > self.config["idle_percentage_range"][0] )else 0
         scaled_idle = utils.lmap(
             idle, self.config["idle_percentage_range"], [0, 1]
         )
+
+        global_step += 1  # Increment global step for each reward calculation
 
         return {
             "collision_reward": float(self.vehicle.crashed),
@@ -118,7 +156,10 @@ class Highway(HighwayEnv):
             "idle_reward": np.clip(scaled_idle, 0, 1),
             "lane_change_reward": action in [0, 2],
         }
-
+    
+    def _get_values(self):
+        return self.vehicle.speed, self.vehicle.crashed
+    
 class HighwayFast(Highway):
     @classmethod
     def default_config(cls) -> dict:
