@@ -1,74 +1,160 @@
-2_dqn_simple_0 Crashed
-2_ppo_simple_0 Crashed
-2_ppo_confort_0 Crashed
-2_dqn_confort_1 Crashed
-2_ppo_simple_1 Crashed
-2_ppo_confort_1 Crashed
-2_dqn_simple_2 Crashed
-2_ppo_confort_2 Crashed
-2_dqn_simple_3 Crashed
-2_ppo_simple_3 Crashed
-2_ppo_confort_3 Crashed
-2_dqn_confort_4 Crashed
-2_ppo_simple_4 Crashed
-2_ppo_confort_4 Crashed
-2_dqn_simple_5 Crashed
-2_dqn_confort_5 Crashed
-2_ppo_simple_5 Crashed
-2_ppo_confort_5 Crashed
-2_dqn_simple_6 Crashed
-2_ppo_simple_6 Crashed
-2_ppo_confort_6 Crashed
-2_ppo_simple_7 Crashed
-2_ppo_confort_7 Crashed
-2_dqn_simple_8 Crashed
-2_dqn_confort_8 Crashed
-2_ppo_simple_8 Crashed
-2_ppo_confort_8 Crashed
-2_ppo_simple_9 Crashed
-2_ppo_confort_9 Crashed
-3_dqn_confort_0 Crashed
-3_ppo_simple_0 Crashed
-3_dqn_simple_1 Crashed
-3_ppo_simple_1 Crashed
-3_ppo_confort_1 Crashed
-3_dqn_simple_2 Crashed
-3_dqn_confort_2 Crashed
-3_ppo_simple_2 Crashed
-3_dqn_simple_3 Crashed
-3_dqn_confort_3 Crashed
-3_ppo_simple_3 Crashed
-3_dqn_simple_4 Crashed
-3_dqn_confort_4 Crashed
-3_ppo_simple_4 Crashed
-3_dqn_simple_5 Crashed
-3_ppo_simple_5 Crashed
-3_ppo_confort_5 Crashed
-3_dqn_simple_6 Crashed
-3_dqn_confort_6 Crashed
-3_ppo_simple_6 Crashed
-3_ppo_confort_6 Crashed
-3_dqn_simple_7 Crashed
-3_ppo_simple_7 Crashed
-3_dqn_simple_8 Crashed
-3_dqn_confort_8 Crashed
-3_ppo_confort_8 Crashed
-3_dqn_simple_9 Crashed
-3_dqn_confort_9 Crashed
-3_ppo_simple_9 Crashed
-4_ppo_simple_0 Crashed
-4_ppo_confort_0 Crashed
-4_ppo_confort_1 Crashed
-4_dqn_simple_2 Crashed
-4_dqn_confort_2 Crashed
-4_ppo_confort_2 Crashed
-4_ppo_simple_3 Crashed
-4_ppo_confort_3 Crashed
-4_ppo_simple_4 Crashed
-4_ppo_confort_4 Crashed
-4_dqn_confort_5 Crashed
-4_ppo_confort_5 Crashed
-4_ppo_confort_6 Crashed
-4_ppo_confort_7 Crashed
-4_ppo_confort_8 Crashed
-4_ppo_confort_9 Crashed
+1_dqn_simple_0_False
+1_dqn_confort_0_False
+1_ppo_simple_0_False
+1_ppo_confort_0_False
+1_dqn_simple_1_False
+1_dqn_confort_1_False
+1_ppo_simple_1_False
+1_ppo_confort_1_False
+1_dqn_simple_2_False
+1_dqn_confort_2_False
+1_ppo_simple_2_False
+1_ppo_confort_2_False
+1_dqn_simple_3_False
+1_dqn_confort_3_False
+1_ppo_simple_3_False
+1_ppo_confort_3_False
+1_dqn_simple_4_False
+1_dqn_confort_4_False
+1_ppo_simple_4_False
+1_ppo_confort_4_False
+1_dqn_simple_5_False
+1_dqn_confort_5_False
+1_ppo_simple_5_False
+1_ppo_confort_5_False
+1_dqn_simple_6_False
+1_dqn_confort_6_False
+1_ppo_simple_6_False
+1_ppo_confort_6_False
+1_dqn_simple_7_False
+1_dqn_confort_7_False
+1_ppo_simple_7_False
+1_ppo_confort_7_False
+1_dqn_simple_8_False
+1_dqn_confort_8_False
+1_ppo_simple_8_False
+1_ppo_confort_8_False
+1_dqn_simple_9_False
+1_dqn_confort_9_False
+1_ppo_simple_9_False
+1_ppo_confort_9_False
+2_dqn_simple_0_False
+2_dqn_confort_0_False
+2_ppo_simple_0_False
+2_ppo_confort_0_True
+2_dqn_simple_1_True
+2_dqn_confort_1_False
+2_ppo_simple_1_True
+2_ppo_confort_1_True
+2_dqn_simple_2_False
+2_dqn_confort_2_True
+2_ppo_simple_2_True
+2_ppo_confort_2_True
+2_dqn_simple_3_False
+2_dqn_confort_3_False
+2_ppo_simple_3_True
+2_ppo_confort_3_True
+2_dqn_simple_4_True
+2_dqn_confort_4_False
+2_ppo_simple_4_True
+2_ppo_confort_4_True
+2_dqn_simple_5_True
+2_dqn_confort_5_False
+2_ppo_simple_5_True
+2_ppo_confort_5_True
+2_dqn_simple_6_False
+2_dqn_confort_6_False
+2_ppo_simple_6_True
+2_ppo_confort_6_True
+2_dqn_simple_7_True
+2_dqn_confort_7_False
+2_ppo_simple_7_True
+2_ppo_confort_7_True
+2_dqn_simple_8_False
+2_dqn_confort_8_True
+2_ppo_simple_8_True
+2_ppo_confort_8_True
+2_dqn_simple_9_False
+2_dqn_confort_9_True
+2_ppo_simple_9_True
+2_ppo_confort_9_True
+3_dqn_simple_0_False
+3_dqn_confort_0_True
+3_ppo_simple_0_True
+3_ppo_confort_0_False
+3_dqn_simple_1_True
+3_dqn_confort_1_False
+3_ppo_simple_1_True
+3_ppo_confort_1_True
+3_dqn_simple_2_True
+3_dqn_confort_2_False
+3_ppo_simple_2_True
+3_ppo_confort_2_True
+3_dqn_simple_3_True
+3_dqn_confort_3_True
+3_ppo_simple_3_True
+3_ppo_confort_3_False
+3_dqn_simple_4_True
+3_dqn_confort_4_False
+3_ppo_simple_4_True
+3_ppo_confort_4_False
+3_dqn_simple_5_True
+3_dqn_confort_5_False
+3_ppo_simple_5_True
+3_ppo_confort_5_False
+3_dqn_simple_6_True
+3_dqn_confort_6_True
+3_ppo_simple_6_True
+3_ppo_confort_6_True
+3_dqn_simple_7_True
+3_dqn_confort_7_True
+3_ppo_simple_7_True
+3_ppo_confort_7_False
+3_dqn_simple_8_False
+3_dqn_confort_8_True
+3_ppo_simple_8_True
+3_ppo_confort_8_True
+3_dqn_simple_9_True
+3_dqn_confort_9_True
+3_ppo_simple_9_True
+3_ppo_confort_9_True
+4_dqn_simple_0_False
+4_dqn_confort_0_False
+4_ppo_simple_0_False
+4_ppo_confort_0_True
+4_dqn_simple_1_False
+4_dqn_confort_1_False
+4_ppo_simple_1_False
+4_ppo_confort_1_True
+4_dqn_simple_2_False
+4_dqn_confort_2_False
+4_ppo_simple_2_False
+4_ppo_confort_2_True
+4_dqn_simple_3_False
+4_dqn_confort_3_False
+4_ppo_simple_3_True
+4_ppo_confort_3_True
+4_dqn_simple_4_False
+4_dqn_confort_4_False
+4_ppo_simple_4_True
+4_ppo_confort_4_True
+4_dqn_simple_5_True
+4_dqn_confort_5_False
+4_ppo_simple_5_False
+4_ppo_confort_5_True
+4_dqn_simple_6_False
+4_dqn_confort_6_False
+4_ppo_simple_6_True
+4_ppo_confort_6_True
+4_dqn_simple_7_False
+4_dqn_confort_7_False
+4_ppo_simple_7_False
+4_ppo_confort_7_True
+4_dqn_simple_8_False
+4_dqn_confort_8_False
+4_ppo_simple_8_False
+4_ppo_confort_8_True
+4_dqn_simple_9_False
+4_dqn_confort_9_False
+4_ppo_simple_9_False
+4_ppo_confort_9_True
