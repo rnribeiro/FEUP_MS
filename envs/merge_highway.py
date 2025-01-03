@@ -40,7 +40,7 @@ class MergeHighway(MergeEnv):
             reward = utils.lmap(
                 reward,
                 [
-                    self.config["collision_reward"] + self.config["lane_change_reward"] + self.config["merging_speed_reward"],
+                    self.config["collision_reward"] + self.config["lane_change_reward"],
                     self.config["high_speed_reward"] + self.config["right_lane_reward"] + self.config["idle_reward"],
                 ],
                 [0, 1],
@@ -76,13 +76,6 @@ class MergeHighway(MergeEnv):
             "lane_change_reward": action in [0, 2],
             "on_road_reward": float(self.vehicle.on_road),
             "idle_reward": np.clip(scaled_idle, 0, 1),
-
-            "merging_speed_reward": sum(  # Altruistic penalty
-                (vehicle.target_speed - vehicle.speed) / vehicle.target_speed
-                for vehicle in self.road.vehicles
-                if vehicle.lane_index == ("j", "k", 0)
-                and isinstance(vehicle, ControlledVehicle)
-            ),
         }
     def _make_vehicles(self) -> None:
         """
